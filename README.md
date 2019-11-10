@@ -35,6 +35,46 @@ yourVariable.onScroll(function(arg){
 ```
 if you need to get the scroll event result, try to console.log(arg).
 
+an example, we want to handle scroll event to navbar.
+```javascript
+yourVariable.onScroll(function(arg){
+  if(yourVariable.locoStatus){
+    navbar(arg[0].delta.y);
+  } else {
+    navbar($(window).scrollTop());
+  }
+});
+
+var lastScrollTop = 0;
+var delta = 50;
+var selector = $('header#headerNavigation');
+var selector2 = $('body');
+var electorHeight = selector.outerHeight();
+
+function navbar(st) {
+  scrollTop = st;
+  if (Math.abs(lastScrollTop - scrollTop) <= delta)
+    return;
+  if (scrollTop > lastScrollTop && scrollTop > selectorHeight) {
+    selector.addClass('scroll-top');
+    selector2.addClass('scroll-top');
+  } else {
+    if (scrollTop + $(window).height() < $(document).height()) {
+      selector.removeClass('scroll-top');
+      selector2.removeClass('scroll-top');
+    }
+  }
+  if (scrollTop > 80) {
+    selector.addClass('scrolled');
+    selector2.addClass('scrolled');
+  } else {
+    selector.removeClass('scrolled');
+    selector2.removeClass('scrolled');
+  }
+  lastScrollTop = scrollTop;
+};
+```
+
 
 > the file size is just 2kb, and it's not dig your browser harder
 
